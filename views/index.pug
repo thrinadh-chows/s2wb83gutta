@@ -3,20 +3,13 @@ extends layout
 block content
   h1= title
   p Welcome to Thrinadh
-
-  button(type='button', class='btn btn-secondary' onclick='update()') Press Me
-
- 
-    var btnType = 'primary'
-    var btnSize = 'lg'
-  button(type="button", class="btn btn-danger",onclick="moreClaps()") Press  me
+  button(type='button', class='btn btn-secondary' onclick='moreClaps()') Press Me
   div(id = "target") Clap for me
+  
   script.
     var clap_count=0;
     
     function moreClaps() {
-      clap_count=clap_count+2;
-      document.getElementById("target").innerHTML=`Value now ${clap_count}`;
+      clap_count=clap_count+1;
+      document.getElementById("target").innerHTML=`Claps ${clap_count} times`;
     }
- 
-

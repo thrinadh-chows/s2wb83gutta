@@ -1,0 +1,35 @@
+extends layout
+
+block content
+  h1= title
+  div(class="container-fluid")
+    div(class="row")
+      -
+        let gift = [
+          {
+             "gifttype": "watch",
+              "occasion": "birthday",
+              "cost": "$ 30 \n"
+          },
+          {
+             "gifttype": "rose",
+              "occasion": "valentine's day",
+              "cost": "$ 5 \n"
+          },
+
+          {
+             "gifttype": "greeting",
+              "occasion": "friendship day",
+              "cost": "$ 10\n"
+          }
+          
+        ]
+      each i,index in gift
+        div(class="col-sm-2" onclick=`buy(${index})`) #{i.gifttype}
+        div(class="col-sm-2" onclick=`buy(${index})`) #{i.occasion}
+        div(class="col-sm-2" onclick=`buy(${index})`) #{i.cost}
+  script.                
+      function buy(gifts)
+      {
+        alert(`you bought the item: ${gifts+1}`)
+      }
