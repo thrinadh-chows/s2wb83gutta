@@ -31,6 +31,16 @@ async function recreateDB(){
       if(err) return console.error(err); 
       console.log("First object saved") 
   }); 
+  let instance2 = new gift({gifttype: "Phone",occasion: "Wedding",cost:  130}); 
+  instance2.save( function(err,doc) { 
+      if(err) return console.error(err); 
+      console.log("Seccond object saved") 
+  }); 
+  let instance3 = new gift({gifttype: "Key",occasion: "Dating",cost:  230}); 
+  instance3.save( function(err,doc) { 
+      if(err) return console.error(err); 
+      console.log("Third object saved") 
+  }); 
 } 
 var app = express();
 
