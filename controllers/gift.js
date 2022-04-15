@@ -6,9 +6,18 @@ exports.gift_list = function(req, res) {
 }; 
  
 // for a specific Gift. 
-exports.gift_detail = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Gift detail: ' + req.params.id); 
-}; 
+// for a specific Costume. 
+exports.gift_detail = async function(req, res) { 
+    console.log("detail"  + req.params.id) 
+    try { 
+        result = await Gift.findById( req.params.id) 
+        res.send(result) 
+    } catch (error) { 
+        res.status(500) 
+        res.send(`{"error": document for id ${req.params.id} not found`); 
+    } 
+};
+ 
  
 // Handle Costume create on POST. 
 exports.gift_create_post = async function(req, res) { 
@@ -32,9 +41,24 @@ exports.gift_delete = function(req, res) {
     res.send('NOT IMPLEMENTED: Gift delete DELETE ' + req.params.id); 
 }; 
  
-// Handle Gift update form on PUT. 
-exports.gift_update_put = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Gift update PUT' + req.params.id); 
+exports.gift_update_put = async function(req, res) { 
+    console.log(`update on id ${req.params.id} with body 
+${JSON.stringify(req.body)}`) 
+    try { 
+        let toUpdate = await Gift.findById( req.params.id) 
+        // Do updates of properties 
+        if(req.body.gifttype)  
+               toUpdate.gifttype = req.body.gifttype; 
+        if(req.body.occasion) toUpdate.occasion = req.body.occasion; 
+        if(req.body.cost) toUpdate.cost = req.body.cost; 
+        let result = await toUpdate.save(); 
+        console.log("Sucess " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": ${err}: Update for id ${req.params.id} 
+failed`); 
+    } 
 }; 
 
 // List of all Gifts 
