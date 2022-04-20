@@ -1,0 +1,22 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  - let id = toShow._id 
+  - let gifttype = toShow.gifttype 
+  - let occasion = toShow.occasion 
+  - let cost = toShow.cost 
+  div 
+    div.row 
+      div(class='costumeAttr mr-3') Gift ID is: 
+      div #{id} 
+    div.row 
+      div(class='costumeAttr mr-3') Gift Type is: 
+      div #{gifttype} 
+    div.row 
+      div(class='costumeAttr mr-3') Gift Occasion is: 
+      div #{occasion} 
+    div.row 
+      div(class='costumeAttr mr-3') Gift Cost is: 
+      div #{cost} 
