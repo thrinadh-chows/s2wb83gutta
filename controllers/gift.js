@@ -85,7 +85,7 @@ exports.gift_list = async function(req, res) {
 // Handle a show all view 
 exports.gift_view_all_Page = async function(req, res) { 
     try{ 
-        theGift = await Gift.find(); 
+        theGift = await Gift.find();
         res.render('gift', { title: 'Gifts Search Results', results: theGift }); 
     } 
     catch(err){ 
