@@ -23,7 +23,7 @@ block content
                 input#occasion(type='text', name='occasion',value = toShow.occasion ) 
             div.form-group 
                 label.giftAttr(for='cost') cost 
-                input#cost(type='number', name='cost',value = cost) 
+                input#cost(type='number', name='cost',value = cost,min = 0, max = 250) 
                 span.validity
             input(type="submit") 
         

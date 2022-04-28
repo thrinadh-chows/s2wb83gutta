@@ -6,7 +6,7 @@ block content
   form(id='GiftForm', action="/resource/gift", method="POST") 
     div.form-group 
         label.giftAttr(for='gifttype') Gift type 
-        input#Item_name(type='text', name='gifttype') 
+        input#Item_name(type='text', name='gifttype',minlength = 4, maxlength = 14) 
     div.form-group 
         label.giftAttr(for='occasion') Occasion 
         input#Item_type(type='text', name='occasion') 

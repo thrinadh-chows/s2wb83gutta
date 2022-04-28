@@ -3,7 +3,6 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var gift = require('./models/gift');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 passport.use(new LocalStrategy(
@@ -19,8 +18,11 @@ passport.use(new LocalStrategy(
       return done(null, user);
     });
   }))
-
-
+var mongoose = require('mongoose');
+const connectionString = process.env.MONGO_CON
+mongoose = require('mongoose');
+mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
+var gift = require('./models/gift');
 var resourceRouter = require('./routes/resource');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -29,21 +31,6 @@ var addmodsRouter = require('./routes/addmods')
 var selectorRouter = require('./routes/selector')
 
 
-const connectionString = process.env.MONGO_CON
-mongoose = require('mongoose');
-mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
-
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const passportLocalMongoose = require("passport-localmongoose");
-const accountSchema = new Schema({
- username: String,
- password: String
-});
-accountSchema.plugin(passportLocalMongoose);
-// We export the Schema to avoid attaching the model to the
-// default mongoose connection.
-module.exports = mongoose.model("Account", accountSchema);
 
 let reseed = true;
 if (reseed) { recreateDB(); }
