@@ -1,35 +1,24 @@
+
+
 extends layout
 
 block content
   h1= title
   div(class="container-fluid")
-    div(class="row")
-      -
-        let gift = [
-          {
-             "gifttype": "watch",
-              "occasion": "birthday",
-              "cost": "$ 30 \n"
-          },
-          {
-             "gifttype": "rose",
-              "occasion": "valentine's day",
-              "cost": "$ 5 \n"
-          },
+  - let create = `dispatch(\"/gift")`
+    button.btn( class="btn-primary ml-1", onclick= create) Create
+  div(class="row m-1")
+  each result in results
+    - let destination = `dispatch(\"/gift/update?id=${result._id}\")`
+    - let destination1 = `dispatch(\"/gift/delete?id=${result._id}\")`
+    - let destination2 = `dispatch(\"/gift/detail?id=${result._id}\")`
+    div(class="row-sm-2" class="m-1") Item Cost #{result.gifttype} for #{result.occasion} is #{result.cost}
+    button.btn( class="btn-primary ml-1", onclick= destination) Update
+    button.btn( class="btn-primary ml-1", onclick= destination1) Delete
+    button.btn( class="btn-primary ml-1", onclick= destination2) detail
 
-          {
-             "gifttype": "greeting",
-              "occasion": "friendship day",
-              "cost": "$ 10\n"
-          }
-          
-        ]
-      each i,index in gift
-        div(class="col-sm-2" onclick=`buy(${index})`) #{i.gifttype}
-        div(class="col-sm-2" onclick=`buy(${index})`) #{i.occasion}
-        div(class="col-sm-2" onclick=`buy(${index})`) #{i.cost}
-  script.                
-      function buy(gifts)
-      {
-        alert(`you bought the item: ${gifts+1}`)
-      }
+
+  script.
+    function dispatch(path){
+      window.location.href=path
+    }

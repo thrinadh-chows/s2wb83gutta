@@ -1,0 +1,46 @@
+extends layout 
+ 
+block content
+    h1= title
+    if(toShow == null)
+        h2 No instance to update
+    else
+        - let giftid = toShow._id 
+        - let gifttype = toShow.gifttype 
+        - let occasion = toShow.occasion 
+        - let cost = toShow.cost  
+
+        div.row(class='mb-2') 
+            div.mr-1 ID is 
+            div #{giftid}  
+        - let actionid = "/resource/gift/" + giftid 
+        form(id='GiftForm', action=actionid, method="PUT") 
+            div.form-group 
+                label.giftAttr(for='gifttype') Gift Type 
+                input#gifttype(type='text', name='gifttype',value = gifttype)
+            div.form-group 
+                label.giftAttr(for='occasion') Occasion 
+                input#occasion(type='text', name='occasion',value = toShow.occasion ) 
+            div.form-group 
+                label.giftAttr(for='cost') cost 
+                input#cost(type='number', name='cost',value = cost,min = 0, max = 250) 
+                span.validity
+            input(type="submit") 
+        
+        script. 
+            document.forms['GiftForm'].addEventListener('submit', (event) => { 
+            event.preventDefault(); 
+            // TODO do something here to show user that form is being submitted 
+            fetch(event.target.action, { 
+                method: 'PUT', 
+                body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
+            }).then((resp) => { 
+                return resp.json(); // or resp.text() or whatever the server sends 
+            }).then((body) => { 
+                alert("Update succeded") 
+                // TODO handle body 
+            }).catch((error) => { 
+                // TODO handle error 
+                alert("Save failed " + error ) 
+            }); 
+            });

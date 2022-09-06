@@ -1,0 +1,35 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  form(id='GiftForm', action="/resource/gift", method="POST") 
+    div.form-group 
+        label.giftAttr(for='gifttype') Gift type 
+        input#Item_name(type='text', name='gifttype',minlength = 4, maxlength = 14) 
+    div.form-group 
+        label.giftAttr(for='occasion') Occasion 
+        input#Item_type(type='text', name='occasion') 
+    div.form-group 
+        label.giftAttr(for='cost') Cost 
+        input#Item_price(type='number', name='cost')
+        span.validity 
+    input(type="submit") 
+ 
+  script. 
+    document.forms['GiftForm'].addEventListener('submit', (event) => { 
+      event.preventDefault(); 
+      // TODO do something here to show user that form is being submitted 
+      fetch(event.target.action, { 
+        method: 'POST', 
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
+      }).then((resp) => { 
+        return resp.json(); // or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Save succeded") 
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Save failed " + error ) 
+      }); 
+    });
